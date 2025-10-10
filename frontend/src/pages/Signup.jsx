@@ -1,7 +1,13 @@
 export default function Signup() {
     return (
-        <div>
-            <h1 className="text-2xl font-bold text-black">Signup Page</h1>
-        </div>
+        <>
+            <div>
+                <p>Signup page</p>
+                <p>email</p>
+                <p>Password</p>
+                <p>Confirm Password</p>
+                <p>Button</p>
+            </div>
+        </>
     )
 }

@@ -10,7 +10,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
 
         {/* Add Fall back route */}
-        <Route path="*" element={<div>404 Not Found</div>} />
+        <Route path="*" element={<div className='text-2xl text-black'>404 Not Found</div>} />
       </Routes>
     </BrowserRouter>
   )
