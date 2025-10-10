@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { pool } from './db.js';
+import testRouter from './routes/test.js';
 
 dotenv.config();
 
@@ -15,6 +16,11 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('Welcome to the Dolabify API');
 });
+
+// Routes
+app.use('/', testRouter);
+
+
 
 // Test database connection
 app.get('/test-db', async (req, res) => {
