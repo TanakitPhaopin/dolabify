@@ -1,28 +1,18 @@
-import { useEffect } from 'react'
 import './App.css'
-import API from './api'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router";
+import Signup from './pages/Signup'
 
 function App() {
 
-  useEffect(() => {
-    const fetchTest = async () => {
-      try {
-        const response = await API.get('/test/ocheer');
-        console.log('Response from /test:', response.data);
-      } catch (error) {
-        console.error('Error fetching /test:', error);
-      }
-    };
-
-    fetchTest();
-  }, []);
-
   return (
-    <>
-      <div>
-        <p>Home page</p>
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/signup" element={<Signup />} />
+
+        {/* Add Fall back route */}
+        <Route path="*" element={<div>404 Not Found</div>} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
