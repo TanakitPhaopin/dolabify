@@ -7,10 +7,24 @@ import testRouter from './routes/test.js';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+if (process.env.NODE_ENV === "production") {
+  // Production
+  app.use(cors());
+  console.log("CORS: Production mode (allow all origins)");
+} else {
+  // Development
+  app.use(
+    cors({
+      origin: "http://localhost:5173",
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      credentials: true,
+    })
+  );
+  console.log("CORS: Development mode (localhost:5173 only)");
+}
 app.use(express.json());
 
 app.get('/', (req, res) => {
