@@ -1,8 +1,9 @@
 export default function Signup() {
+
     return (
         <>
             <div>
-                <p>Signup page</p>
+                <h1>Sign Up</h1>
                 <p>email</p>
                 <p>Password</p>
                 <p>Confirm Password</p>
