@@ -14,8 +14,8 @@ export default function Signup() {
     // Functions
     const handleSignup = () => {
         console.log({username, email, password, confirmPassword})
-        const initial = username.charAt(0).toUpperCase()
-        console.log(initial)
+        const initial = username.charAt(0).toUpperCase();
+        console.log(initial);
     }
 
 
