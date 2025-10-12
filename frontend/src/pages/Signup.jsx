@@ -14,6 +14,8 @@ export default function Signup() {
     // Functions
     const handleSignup = () => {
         console.log({username, email, password, confirmPassword})
+        const initial = username.charAt(0).toUpperCase()
+        console.log(initial)
     }
 
 
@@ -22,7 +24,6 @@ export default function Signup() {
             {/* Form */}
             <form
                 className="bg-white mx-auto p-4 sm:p-8 sm:max-w-96 w-full flex flex-col gap-6 sm:shadow-lg sm:rounded-2xl sm:inset-shadow-xs"
-                onSubmit={handleSignup}
                 autoComplete="off"
             >
                 <h1 className="text-xl font-semibold text-center">Sign Up</h1>
@@ -33,7 +34,7 @@ export default function Signup() {
                     <CustomTextField label="Confirm Password" variant="outlined" type="password" onChange={(e) => setConfirmPassword(e.target.value)}/>
                 </div>
                 <div>
-                    <CustomButton variant="contained" color="primary" title="Create Account" type="submit" />
+                    <CustomButton variant="contained" color="primary" title="Create Account" onClick={handleSignup}/>
                     <p className="text-center mt-4">Already have an account? <a href="/login" className="text-blue-500">Sign in</a></p>
                 </div>
             </form>
