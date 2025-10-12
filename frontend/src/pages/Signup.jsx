@@ -1,4 +1,6 @@
 import { useState } from "react"
+// Functions
+import { signup } from "../services/users"
 
 // Components
 import CustomTextField from "../components/Textfield"
@@ -12,10 +14,21 @@ export default function Signup() {
     const [confirmPassword, setConfirmPassword] = useState("")
 
     // Functions
-    const handleSignup = () => {
-        console.log({username, email, password, confirmPassword})
-        const initial = username.charAt(0).toUpperCase();
-        console.log(initial);
+    const handleSignup = async () => {
+        const userData = {
+            username,
+            email,
+            password,
+            initial: username.charAt(0).toUpperCase(),
+            profile_color: "#ffffff" // Default color, you can change this to any logic you want
+        };
+
+        try {
+            const result = await signup(userData);
+            console.log(result);
+        } catch (error) {
+            console.error("Signup failed:", error);
+        }
     }
 
 
