@@ -1,4 +1,4 @@
-import { pool } from "../db";
+import { pool } from "../db.js";
 
 // Insert a new user
 export const createUser = async (req, res) => {
