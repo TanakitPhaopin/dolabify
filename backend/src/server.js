@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { pool } from './db.js';
 import testRouter from './routes/test.js';
+import userRouter from './routes/users.js';
 
 dotenv.config();
 
@@ -33,7 +34,7 @@ app.get('/', (req, res) => {
 
 // Routes
 app.use('/', testRouter);
-
+app.use('/', userRouter);
 
 
 // Test database connection
