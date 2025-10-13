@@ -15,6 +15,16 @@ export default function Signup() {
 
     // Functions
     const handleSignup = async () => {
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        if (!username || !email || !password || !confirmPassword) {
+            alert("Please fill in all fields");
+            return;
+        }
+
         const userData = {
             username,
             email,
