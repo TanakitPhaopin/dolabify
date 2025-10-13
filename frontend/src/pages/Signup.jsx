@@ -20,7 +20,6 @@ export default function Signup() {
             email,
             password,
             initial: username.charAt(0).toUpperCase(),
-            profile_color: "#ffffff" // Default color, you can change this to any logic you want
         };
 
         try {
