@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 
 // Routes
 app.use('/', testRouter);
-app.use('/', userRouter);
+app.use('/api', userRouter);
 
 
 // Test database connection
