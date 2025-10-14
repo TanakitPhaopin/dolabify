@@ -12,16 +12,22 @@ export default function Signup() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const [loading, setLoading] = useState(false);
 
     // Functions
-    const handleSignup = async () => {
+    const handleSignup = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+
         if (password !== confirmPassword) {
             alert("Passwords do not match");
+            setLoading(false);
             return;
         }
 
         if (!username || !email || !password || !confirmPassword) {
             alert("Please fill in all fields");
+            setLoading(false);
             return;
         }
 
@@ -37,9 +43,10 @@ export default function Signup() {
             console.log(result);
         } catch (error) {
             console.error("Signup failed:", error);
+        } finally {
+            setLoading(false);
         }
     }
-
 
     return (
         <div className="sm:flex sm:justify-center sm:items-center sm:min-h-screen bg-animate-gradient">
@@ -56,8 +63,8 @@ export default function Signup() {
                     <CustomTextField label="Confirm Password" variant="outlined" type="password" onChange={(e) => setConfirmPassword(e.target.value)}/>
                 </div>
                 <div>
-                    <CustomButton variant="contained" color="primary" title="Create Account" onClick={handleSignup}/>
-                    <p className="text-center mt-4">Already have an account? <a href="/login" className="text-blue-500">Sign in</a></p>
+                    <CustomButton variant="contained" color="primary" title="Create Account" disabled={loading} loading={loading} onClick={handleSignup}/>
+                    <p className="text-center mt-4">Already have an account? <a href="/login" className="text-blue-500">Sign In</a></p>
                 </div>
             </form>
         </div>
