@@ -6,8 +6,11 @@ export const signup = async (userData) => {
     const response = await API.post('/api/signup', userData);
     return response.data;
   } catch (error) {
-    console.error("Error signing up:", error);
-    throw error;
+    if (error.response && error.response.data && error.response.data.error) {
+      throw new Error(error.response.data.error);
+    } else {
+      throw new Error("Something went wrong. Please try again.");
+    }
   }
 };
 

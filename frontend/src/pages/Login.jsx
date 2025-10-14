@@ -20,7 +20,7 @@ export default function Login() {
         setLoading(true);
 
         if (!email || !password) {
-            alert("Please fill in all fields");
+            setErrorMessage("Please fill in all fields");
             setLoading(false);
             return;
         }

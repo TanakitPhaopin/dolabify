@@ -12,6 +12,7 @@ export default function Signup() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
     const [loading, setLoading] = useState(false);
 
     // Functions
@@ -19,14 +20,14 @@ export default function Signup() {
         e.preventDefault();
         setLoading(true);
 
-        if (password !== confirmPassword) {
-            alert("Passwords do not match");
+        if (!username || !email || !password || !confirmPassword) {
+            setErrorMessage("Please fill in all fields");
             setLoading(false);
             return;
         }
 
-        if (!username || !email || !password || !confirmPassword) {
-            alert("Please fill in all fields");
+        if (password !== confirmPassword) {
+            setErrorMessage("Passwords do not match");
             setLoading(false);
             return;
         }
@@ -42,6 +43,7 @@ export default function Signup() {
             const result = await signup(userData);
             console.log(result);
         } catch (error) {
+            setErrorMessage(error.message);
             console.error("Signup failed:", error);
         } finally {
             setLoading(false);
@@ -61,6 +63,7 @@ export default function Signup() {
                     <CustomTextField label="Email" variant="outlined" onChange={(e) => setEmail(e.target.value)} />
                     <CustomTextField label="Password" variant="outlined" type="password" onChange={(e) => setPassword(e.target.value)}/>
                     <CustomTextField label="Confirm Password" variant="outlined" type="password" onChange={(e) => setConfirmPassword(e.target.value)}/>
+                    {errorMessage && <p className="text-red-500 text-end">{errorMessage}</p>}
                 </div>
                 <div>
                     <CustomButton variant="contained" color="primary" title="Create Account" disabled={loading} loading={loading} onClick={handleSignup}/>
