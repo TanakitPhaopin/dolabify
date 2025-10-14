@@ -5,6 +5,18 @@ import bcrypt from "bcrypt";
 export const createUser = async (req, res) => {
   const { username, email, password, initial } = req.body;
   try {
+    // Check if email already exists
+    const emailCheck = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+    if (emailCheck.rows.length > 0) {
+      return res.status(400).json({ error: "Email already in use" });
+    }
+
+    // Check if username already exists
+    const usernameCheck = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+    if (usernameCheck.rows.length > 0) {
+      return res.status(400).json({ error: "Username already in use" });
+    }
+
     // Hash the password before storing it
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
