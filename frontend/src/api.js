@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const isDev = import.meta.env.MODE === "development";
+const isDev = import.meta.env.VITE_MODE === "development";
 
 const API = axios.create({
     baseURL: isDev ? 'http://localhost:3000' : import.meta.env.VITE_API_URL,
-    withCredentials: false,
+    withCredentials: true,
 });
 
 export default API;
