@@ -1,5 +1,6 @@
 import { pool } from "../db.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 // Insert a new user
 export const createUser = async (req, res) => {
@@ -49,6 +50,31 @@ export const loginUser = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
+    // Access token
+    const accessToken = jwt.sign(
+      { user_id: user.user_id, username: user.username },
+        process.env.ACCESS_JWT_SECRET,
+      { expiresIn: "15s" }
+    );
+    // Refresh token
+    const refreshToken = jwt.sign(
+      { user_id: user.user_id, username: user.username },
+      process.env.REFRESH_JWT_SECRET,
+      { expiresIn: "50s" }
+    );
+    // Set HttpOnly cookies
+    res.cookie("access_token", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Set secure flag in production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 15 * 1000, // 15 seconds
+    });
+    res.cookie("refresh_token", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Set secure flag in production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 50 * 1000, // 50 seconds
+    });
 
     // Exclude password from the response
     const { password: _, ...userWithoutPassword } = user;

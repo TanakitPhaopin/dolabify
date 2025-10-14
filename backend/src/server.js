@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import { pool } from './db.js';
 import testRouter from './routes/test.js';
 import userRouter from './routes/users.js';
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ if (process.env.NODE_ENV === "production") {
   console.log("CORS: Development mode (localhost:5173 only)");
 }
 app.use(express.json());
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
   res.send('Welcome to the Dolabify API');
