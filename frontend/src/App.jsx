@@ -2,6 +2,8 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router";
 import Signup from './pages/Signup'
 import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
 
@@ -10,6 +12,13 @@ function App() {
       <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        
+        {/* Protected Route */}
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
 
         {/* Add Fall back route */}
         <Route path="*" element={<div className='text-2xl text-black'>404 Not Found</div>} />

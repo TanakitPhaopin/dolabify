@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router"
 // Functions
 import { login } from "../services/users"
 
@@ -7,6 +8,7 @@ import CustomTextField from "../components/Textfield"
 import CustomButton from "../components/Button"
 
 export default function Login() {
+    const navigate = useNavigate();
     // States
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -32,7 +34,7 @@ export default function Login() {
 
         try {
             const result = await login(loginData);
-            console.log(result);
+            navigate("/dashboard");
         } catch (error) {
             setErrorMessage(error.message);
             console.error("Login failed:", error);
