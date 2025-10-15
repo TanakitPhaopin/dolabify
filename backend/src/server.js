@@ -2,9 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { pool } from './db.js';
+import cookieParser from "cookie-parser";
+// Routes
 import testRouter from './routes/test.js';
 import userRouter from './routes/users.js';
-import cookieParser from "cookie-parser";
+import authRouter from './routes/auth.js';
 
 dotenv.config();
 
@@ -37,6 +39,7 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/', testRouter);
 app.use('/api', userRouter);
+app.use('/api', authRouter);
 
 
 // Test database connection

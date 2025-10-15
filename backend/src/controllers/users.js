@@ -60,7 +60,7 @@ export const loginUser = async (req, res) => {
     const refreshToken = jwt.sign(
       { user_id: user.user_id, username: user.username },
       process.env.REFRESH_JWT_SECRET,
-      { expiresIn: "50s" }
+      { expiresIn: "30s" }
     );
     // Set HttpOnly cookies
     res.cookie("access_token", accessToken, {
@@ -73,7 +73,7 @@ export const loginUser = async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // Set secure flag in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 50 * 1000, // 50 seconds
+      maxAge: 30 * 1000, // 30 seconds
     });
 
     // Exclude password from the response
