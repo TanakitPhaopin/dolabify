@@ -26,13 +26,13 @@ export const refreshToken = (req, res) => {
         const accessToken = jwt.sign(
             { user_id: decoded.user_id, username: decoded.username },
             process.env.ACCESS_JWT_SECRET,
-            { expiresIn: '15s' }
+            { expiresIn: '15m' }
         );
         res.cookie('access_token', accessToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // Set secure flag in production
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-            maxAge: 15 * 1000, // 15 seconds
+            maxAge: 15 * 60 * 1000, // 15 minutes
         });
         res.status(200).json({ message: 'Access Token Refreshed' });
     } catch (error) {

@@ -54,26 +54,26 @@ export const loginUser = async (req, res) => {
     const accessToken = jwt.sign(
       { user_id: user.user_id, username: user.username },
         process.env.ACCESS_JWT_SECRET,
-      { expiresIn: "15s" }
+      { expiresIn: "15m" }
     );
     // Refresh token
     const refreshToken = jwt.sign(
       { user_id: user.user_id, username: user.username },
       process.env.REFRESH_JWT_SECRET,
-      { expiresIn: "30s" }
+      { expiresIn: "7d" }
     );
     // Set HttpOnly cookies
     res.cookie("access_token", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // Set secure flag in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 15 * 1000, // 15 seconds
+      maxAge: 15 * 60 * 1000, // 15 minutes
     });
     res.cookie("refresh_token", refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // Set secure flag in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 30 * 1000, // 30 seconds
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
     // Exclude password from the response
