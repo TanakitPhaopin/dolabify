@@ -4,6 +4,7 @@ import Signup from './pages/Signup'
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import Sidebar from './components/Sidebar';
 
 function App() {
 
@@ -16,7 +17,9 @@ function App() {
         {/* Protected Route */}
         <Route path="/dashboard" element={
           <ProtectedRoute>
-            <Dashboard />
+            <Sidebar>
+              <Dashboard />
+            </Sidebar>
           </ProtectedRoute>
         } />
 

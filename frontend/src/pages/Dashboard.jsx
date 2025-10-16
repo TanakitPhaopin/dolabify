@@ -1,7 +1,6 @@
 export default function Dashboard() {
     return (
-        <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+        <div className="bg-[#181818] min-h-screen text-white p-8">
             <p>Welcome to your dashboard!</p>
         </div>
     );
