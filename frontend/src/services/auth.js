@@ -9,3 +9,14 @@ export const checkAuth = async () => {
     return false;
   }
 };
+
+// Logout User
+export const logout = async () => {
+  try {
+    await API.post('/api/logout');
+    return true;
+  } catch (error) {
+    console.error("Logout failed:", error);
+    return false;
+  }
+};

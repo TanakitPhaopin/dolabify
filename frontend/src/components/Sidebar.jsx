@@ -8,12 +8,15 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
+
+import { logout } from '../services/auth';
 
 const drawerWidth = 240;
 
 export default function Sidebar({ children, window }) {
   const location = useLocation();
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
 
@@ -28,6 +31,17 @@ export default function Sidebar({ children, window }) {
     if (!isClosing) setMobileOpen(!mobileOpen);
   };
 
+  const handleLogout = async () => {
+    try {
+      const result = await logout();
+      if (result) {
+        navigate('/login');
+      }
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
   let pageTitle;
   switch (location.pathname) {
     case '/projects':
@@ -38,11 +52,15 @@ export default function Sidebar({ children, window }) {
   const drawer = (
     <div>
       <Toolbar />
-      <Divider />
+      <Divider sx={{ backgroundColor: '#2C2C2C' }} />
       <List>
         {['My Projects', 'Profile', 'Settings'].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => {
+              if (text === 'My Projects') navigate('/projects');
+              if (text === 'Profile') navigate('/profile');
+              if (text === 'Settings') navigate('/settings');
+            }}>
               <ListItemIcon sx={{color: 'white' }}>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
@@ -51,6 +69,15 @@ export default function Sidebar({ children, window }) {
           </ListItem>
         ))}
       </List>
+      <Divider sx={{ backgroundColor: '#2C2C2C' }} />
+      <ListItem disablePadding>
+        <ListItemButton onClick={handleLogout}>
+          <ListItemIcon sx={{color: 'white' }}>
+            <MailIcon />
+          </ListItemIcon>
+          <ListItemText primary="Sign out" />
+        </ListItemButton>
+      </ListItem>
     </div>
   );
 
