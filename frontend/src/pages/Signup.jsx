@@ -1,12 +1,15 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router"
 // Functions
 import { signup } from "../services/users"
+import { checkAuth } from "../services/auth"
 
 // Components
 import CustomTextField from "../components/Textfield"
 import CustomButton from "../components/Button"
 
 export default function Signup() {
+    const navigate = useNavigate();
     // States
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
@@ -49,6 +52,17 @@ export default function Signup() {
             setLoading(false);
         }
     }
+
+    // Check Authentication, if authenticated, redirect to /projects
+    useEffect(() => {
+        const verifyAuth = async () => {
+            const isAuth = await checkAuth();
+            if (isAuth) {
+                navigate("/projects");
+            }
+        };
+        verifyAuth();
+    }, [navigate]);
 
     return (
         <div className="sm:flex sm:justify-center sm:items-center sm:min-h-screen bg-animate-gradient">

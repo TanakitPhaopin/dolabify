@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router"
 // Functions
 import { login } from "../services/users"
+import { checkAuth } from "../services/auth"
 
 // Components
 import CustomTextField from "../components/Textfield"
@@ -34,7 +35,7 @@ export default function Login() {
 
         try {
             const result = await login(loginData);
-            navigate("/dashboard");
+            navigate("/projects");
         } catch (error) {
             setErrorMessage(error.message);
             console.error("Login failed:", error);
@@ -42,6 +43,17 @@ export default function Login() {
             setLoading(false);
         }
     }
+
+    // Check Authentication, if authenticated, redirect to /projects
+    useEffect(() => {
+        const verifyAuth = async () => {
+            const isAuth = await checkAuth();
+            if (isAuth) {
+                navigate("/projects");
+            }
+        };
+        verifyAuth();
+    }, [navigate]);
 
     return (
         <div className="sm:flex sm:justify-center sm:items-center sm:min-h-screen bg-animate-gradient">

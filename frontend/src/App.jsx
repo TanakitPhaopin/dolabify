@@ -2,7 +2,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router";
 import Signup from './pages/Signup'
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
+import MyProjects from './pages/MyProjects';
 import ProtectedRoute from './components/ProtectedRoute';
 import Sidebar from './components/Sidebar';
 
@@ -15,10 +15,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         
         {/* Protected Route */}
-        <Route path="/dashboard" element={
+        <Route path="/projects" element={
           <ProtectedRoute>
             <Sidebar>
-              <Dashboard />
+              <MyProjects />
             </Sidebar>
           </ProtectedRoute>
         } />

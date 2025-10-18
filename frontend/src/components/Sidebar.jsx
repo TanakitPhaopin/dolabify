@@ -8,10 +8,12 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import { useLocation } from 'react-router';
 
 const drawerWidth = 240;
 
 export default function Sidebar({ children, window }) {
+  const location = useLocation();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
 
@@ -26,12 +28,19 @@ export default function Sidebar({ children, window }) {
     if (!isClosing) setMobileOpen(!mobileOpen);
   };
 
+  let pageTitle;
+  switch (location.pathname) {
+    case '/projects':
+      pageTitle = 'My Projects';
+      break;
+  }
+
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <List>
-        {['Dashboard', 'Profile', 'Settings'].map((text, index) => (
+        {['My Projects', 'Profile', 'Settings'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon sx={{color: 'white' }}>
@@ -70,7 +79,7 @@ export default function Sidebar({ children, window }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Dashboard
+            {pageTitle}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -134,6 +143,8 @@ export default function Sidebar({ children, window }) {
           flexGrow: 1,
           p: 0,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          minHeight: '100vh',
+          backgroundColor: '#181818',
         }}
       >
         <Toolbar />
