@@ -39,3 +39,18 @@ export const refreshToken = (req, res) => {
         return res.status(403).json({ error: 'Invalid Refresh Token' });
     }
 }
+
+// Logout user
+export const logoutUser = (req, res) => {
+    res.clearCookie('access_token', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    });
+    res.clearCookie('refresh_token', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    });
+    res.status(200).json({ message: 'Logged out successfully' });
+};
