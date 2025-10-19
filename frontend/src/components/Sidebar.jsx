@@ -6,8 +6,12 @@ import {
   Toolbar, Typography
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
+import PersonIcon from '@mui/icons-material/Person';
+import SettingsIcon from '@mui/icons-material/Settings';
 import MailIcon from '@mui/icons-material/Mail';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { useLocation, useNavigate } from 'react-router';
 
 import { logout } from '../services/auth';
@@ -62,7 +66,9 @@ export default function Sidebar({ children, window }) {
               if (text === 'Settings') navigate('/settings');
             }}>
               <ListItemIcon sx={{color: 'white' }}>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index === 0 && <DashboardIcon />}
+                {index === 1 && <PersonIcon />}
+                {index === 2 && <SettingsIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -73,7 +79,7 @@ export default function Sidebar({ children, window }) {
       <ListItem disablePadding>
         <ListItemButton onClick={handleLogout}>
           <ListItemIcon sx={{color: 'white' }}>
-            <MailIcon />
+            <LogoutIcon />
           </ListItemIcon>
           <ListItemText primary="Sign out" />
         </ListItemButton>
